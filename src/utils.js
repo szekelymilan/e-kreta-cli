@@ -1,5 +1,5 @@
 const { Base64 } = require('js-base64');
-const { bold, red, green, yellow } = require('chalk');
+const { bold, red } = require('chalk');
 const configstore = require('configstore');
 const request = require('request-promise-native');
 

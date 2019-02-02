@@ -1,5 +1,5 @@
 const { Base64 } = require('js-base64');
-const { bold, red, green } = require('chalk');
+const { green } = require('chalk');
 const configstore = require('configstore');
 const Fuse = require('fuse.js');
 const inquirer = require('inquirer');
@@ -54,5 +54,5 @@ module.exports = async () => {
   conf.set('username', Base64.encode(answers['username']));
   conf.set('password', Base64.encode(answers['password']));
 
-  console.log(`${green('Successfully updated configuration.')}`)
+  console.log(`${green('The configuration has been updated successfully.')}`)
 };

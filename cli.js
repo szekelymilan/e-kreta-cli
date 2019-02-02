@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
+const { bold } = require('chalk');
+const inquirer = require('inquirer');
 const meow = require('meow');
-const { bold, red, green } = require('chalk');
 
 const _averages = require('./src/averages');
 const _reconfigure = require('./src/reconfigure');
@@ -13,8 +14,7 @@ const cli = meow(`
  ${bold('Options')}
    -a, --averages       Show subject averages
    -i, --interactive    Interactive mode
-   --reconfigure        Reconfigure the CLI
-   --config             Use a different, local config (read-only)
+   --reconfigure        Update configuration
 
  ${bold('Examples')}
    See: https://github.com/szekelymilan/e-kreta-cli#examples
@@ -49,19 +49,53 @@ const {
   config: CONFIG
 } = cli.flags;
 
+async function _interactive() {
+  const answers = await inquirer.prompt([
+    {
+      type: 'checkbox',
+      name: 'tasks',
+      message: 'Select tasks:',
+      choices: [
+        { name: 'Update configuration', value: 'reconfigure', checked: false },
+        { name: 'Show averages', value: 'averages', checked: false }
+      ]
+    }
+  ]);
+
+  for (const task of answers['tasks']) {
+    switch (task) {
+      case 'averages':
+        await _averages();
+        break;
+      case 'reconfigure':
+        await _reconfigure();
+        break;
+    }
+  }
+}
+
 (async () => {
-  let showHelp = true;
+  let noFlag = true;
+
+  if (INTERACTIVE) {
+    await _interactive();
+    return;
+  }
 
   if (RECONFIGURE) {
     await _reconfigure();
-    showHelp = false;
+    noFlag = false;
   }
 
   if (AVERAGES) {
     _averages();
-    showHelp = false;
+    noFlag = false;
   }
 
-  if (showHelp)
-    cli.showHelp();
+  if (noFlag) {
+    await _interactive();
+    return;
+  }
+
+  return true;
 })();

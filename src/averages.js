@@ -35,4 +35,6 @@ module.exports = async () => {
     if (subj['Value'] == 0.00)
       return console.log(gray(`  ${subj['Subject']}: ${subj['Value'].toFixed(2)} (${subj['Difference'].toFixed(2)})`));
   });
+
+  return;
 }
