@@ -1,0 +1,31 @@
+{
+  "name": "e-kreta-cli",
+  "version": "0.0.1",
+  "description": "e-Kréta CLI",
+  "main": "cli.js",
+  "scripts": {},
+  "bin": {
+    "kreta": "cli.js"
+  },
+  "repository": "szekelymilan/e-kreta-cli",
+  "homepage": "https://github.com/szekelymilan/e-kreta-cli#readme",
+  "author": "Milan Szekely <szekelymilan1125@gmail.com> (https://szekelymilan.eu)",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "configstore": "^4.0.0",
+    "fuse.js": "^3.3.0",
+    "inquirer": "^6.2.2",
+    "inquirer-autocomplete-prompt": "^1.0.1",
+    "js-base64": "^2.5.1",
+    "meow": "^5.0.0",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.5"
+  },
+  "keywords": [
+    "cli",
+    "cli-app",
+    "e-kreta",
+    "e-kreta-cli"
+  ]
+}
