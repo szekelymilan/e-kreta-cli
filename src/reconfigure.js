@@ -1,6 +1,5 @@
 const { Base64 } = require('js-base64');
 const { green } = require('chalk');
-const configstore = require('configstore');
 const Fuse = require('fuse.js');
 const inquirer = require('inquirer');
 const utils = require('./utils');
@@ -49,10 +48,9 @@ module.exports = async () => {
     }
   ]);
 
-  const conf = new configstore(utils.pkg.name);
-  conf.set('institute', institutes.filter(x => x.Name.trim() == answers['institute'])[0]['InstituteCode']);
-  conf.set('username', Base64.encode(answers['username']));
-  conf.set('password', Base64.encode(answers['password']));
+  utils.conf.set('institute', institutes.filter(x => x.Name.trim() == answers['institute'])[0]['InstituteCode']);
+  utils.conf.set('username', Base64.encode(answers['username']));
+  utils.conf.set('password', Base64.encode(answers['password']));
 
   console.log(`${green('The configuration has been updated successfully.')}`)
 };

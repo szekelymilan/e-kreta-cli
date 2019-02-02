@@ -6,6 +6,7 @@ const request = require('request-promise-native');
 const _reconfigure = require('./reconfigure');
 
 exports.pkg = require('../package.json');
+exports.conf = new configstore(exports.pkg.name);
 
 exports.getInstitutes = async () => {
   const response = await request.get('https://kretaglobalmobileapi.ekreta.hu/api/v1/Institute', { headers: { apiKey: '7856d350-1fda-45f5-822d-e1a2f3f1acf0' } });
@@ -22,14 +23,12 @@ exports.login = async (institute, username, password) => {
 }
 
 exports.login_configStore = async () => {
-  const conf = new configstore(exports.pkg.name);
-
-  if ((conf.get('institute') || '') == '' || (conf.get('username') || '') == '' || (conf.get('password') || '') == '') {
+  if ((exports.conf.get('institute') || '') == '' || (exports.conf.get('username') || '') == '' || (exports.conf.get('password') || '') == '') {
     console.log(`${red('Required settings are missing.')} Running reconfigure...`);
     await _reconfigure();
   }
 
-  const response = await exports.login(conf.get('institute'), Base64.decode(conf.get('username')), Base64.decode(conf.get('password')));
+  const response = await exports.login(exports.conf.get('institute'), Base64.decode(exports.conf.get('username')), Base64.decode(exports.conf.get('password')));
 
   if (response == 0) {
     console.log(`${red('Invalid institute in configuration.')} ${bold('Run kreta --reconfigure.')}`);

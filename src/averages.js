@@ -4,13 +4,12 @@ const request = require('request-promise-native');
 const utils = require('./utils');
 
 module.exports = async () => {
-  const conf = new configstore(utils.pkg.name);
   const credentials = await utils.login_configStore();
 
   if (!credentials)
     return console.log(`${red('Error occured while fetching averages.')}\n`);
 
-  const studentData = await request.get(`https://${conf.get('institute')}.e-kreta.hu/mapi/api/v1/Student`, { auth: { bearer: credentials['access_token'] } });
+  const studentData = await request.get(`https://${utils.conf.get('institute')}.e-kreta.hu/mapi/api/v1/Student`, { auth: { bearer: credentials['access_token'] } });
   const subjectAverages = JSON.parse(studentData)['SubjectAverages'];
   subjectAverages.sort((a, b) => a['Subject'].localeCompare(b['Subject']));
 
