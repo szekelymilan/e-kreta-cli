@@ -24,7 +24,7 @@ exports.login = async (institute, username, password) => {
 
 exports.login_configStore = async () => {
   if ((exports.conf.get('institute') || '') == '' || (exports.conf.get('username') || '') == '' || (exports.conf.get('password') || '') == '') {
-    console.log(`${red('Required settings are missing.')} Running reconfigure...`);
+    console.log(`${red('Some required settings are missing.')} Running reconfigure...`);
     await _reconfigure();
   }
 
