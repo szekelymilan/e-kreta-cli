@@ -13,6 +13,7 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [Examples](#examples)
+- [Contributors](#contributors)
 - [License](#license)
 
 ## Description
@@ -35,6 +36,12 @@ Too lazy for typing the flags? Run the CLI in **interactive mode**! 😎
 
 ```
 $ npm i -g e-kreta-cli
+```
+
+#### yarn
+
+```
+$ yarn global add e-kreta-cli
 ```
 
 ## Usage
@@ -69,6 +76,10 @@ $ kreta --reconfigure
 ```
 $ kreta -a
 ```
+
+## Contributors
+
+- Many thanks to [boapps](https://github.com/boapps) for making [e-kreta-api-docs](https://github.com/boapps/e-kreta-api-docs).
 
 ## License
 
