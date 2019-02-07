@@ -1,7 +1,7 @@
 {
   "name": "e-kreta-cli",
   "version": "0.0.1",
-  "description": "e-Kréta CLI",
+  "description": "Check your electronic diary - from right inside your terminal.",
   "main": "cli.js",
   "scripts": {},
   "bin": {
