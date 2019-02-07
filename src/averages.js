@@ -7,7 +7,7 @@ module.exports = async () => {
   const credentials = await utils.login_configStore();
 
   if (!credentials)
-    return console.log(`${red('Error occured while fetching averages.')}\n`);
+    return console.log(`${red('Error occured while fetching data.')}\n`);
 
   const studentData = await request.get(`https://${utils.conf.get('institute')}.e-kreta.hu/mapi/api/v1/Student`, { auth: { bearer: credentials['access_token'] } });
   const subjectAverages = JSON.parse(studentData)['SubjectAverages'];

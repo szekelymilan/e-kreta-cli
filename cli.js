@@ -3,7 +3,9 @@
 const { bold } = require('chalk');
 const inquirer = require('inquirer');
 const meow = require('meow');
+const updateNotifier = require('update-notifier');
 
+const pkg = require('./package.json');
 const _averages = require('./src/averages');
 const _reconfigure = require('./src/reconfigure');
 
@@ -77,6 +79,8 @@ async function _interactive() {
 (async () => {
   let noFlag = true;
 
+  updateNotifier({pkg}).notify();
+
   if (INTERACTIVE) {
     await _interactive();
     return;
@@ -92,10 +96,8 @@ async function _interactive() {
     noFlag = false;
   }
 
-  if (noFlag) {
+  if (noFlag)
     await _interactive();
-    return;
-  }
 
-  return true;
+  process.exit();
 })();
