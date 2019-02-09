@@ -92,7 +92,7 @@ async function _interactive() {
   }
 
   if (AVERAGES) {
-    _averages();
+    await _averages();
     noFlag = false;
   }
 
