@@ -24,7 +24,7 @@ Too lazy for typing? Run the CLI in **interactive mode**! 😎
 
 ## Features
 
-- ⚡ Interactive mode via `--interactive`
+- ⚡ Interactive mode
 - 💾 Saves login credentials
 - 🖥 Shows subject averages
 - 🏠 Downloads assignments
