@@ -1,6 +1,6 @@
 {
   "name": "e-kreta-cli",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Check your electronic diary - from right inside your terminal.",
   "main": "cli.js",
   "scripts": {},
@@ -12,16 +12,18 @@
   "author": "Milan Szekely <szekelymilan1125@gmail.com> (https://szekelymilan.eu)",
   "license": "MIT",
   "dependencies": {
-    "chalk": "^2.4.2",
-    "configstore": "^4.0.0",
-    "fuse.js": "^3.3.0",
-    "inquirer": "^6.2.2",
-    "inquirer-autocomplete-prompt": "^1.0.1",
-    "js-base64": "^2.5.1",
-    "meow": "^5.0.0",
-    "request": "^2.88.0",
-    "request-promise-native": "^1.0.5",
-    "update-notifier": "^2.5.0"
+    "chalk": "^3.0.0",
+    "configstore": "^5.0.1",
+    "fuse.js": "^3.6.1",
+    "inquirer": "^7.1.0",
+    "inquirer-autocomplete-prompt": "^1.0.2",
+    "js-base64": "^2.5.2",
+    "meow": "^6.1.0",
+    "mkdirp": "^1.0.3",
+    "ora": "^4.0.3",
+    "request": "^2.88.2",
+    "request-promise-native": "^1.0.8",
+    "update-notifier": "^4.1.0"
   },
   "keywords": [
     "cli",

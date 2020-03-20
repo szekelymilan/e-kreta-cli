@@ -16,10 +16,7 @@ module.exports = async () => {
     distance: 100,
     maxPatternLength: 32,
     minMatchCharLength: 1,
-    keys: [
-      'Name',
-      'InstituteCode'
-    ]
+    keys: ['Name', 'InstituteCode'],
   });
 
   const answers = await inquirer.prompt([
@@ -29,28 +26,30 @@ module.exports = async () => {
       message: 'Select an institute:',
       source: function(answers, input = '') {
         return new Promise(function(resolve) {
-          if (input.length < 1)
-            return resolve(institutes.map(e => e.Name.trim()));
+          if (input.length < 1) return resolve(institutes.map(e => e.Name.trim()));
 
           resolve(fuse.search(input).map(e => e.Name.trim()));
         });
-      }
+      },
     },
     {
       type: 'input',
       name: 'username',
-      message: 'Username:'
+      message: 'Username:',
     },
     {
       type: 'input',
       name: 'password',
-      message: 'Password:'
-    }
+      message: 'Password:',
+    },
   ]);
 
-  utils.conf.set('institute', institutes.filter(x => x.Name.trim() == answers['institute'])[0]['InstituteCode']);
+  utils.conf.set(
+    'institute',
+    institutes.filter(x => x.Name.trim() == answers['institute'])[0]['InstituteCode'],
+  );
   utils.conf.set('username', Base64.encode(answers['username']));
   utils.conf.set('password', Base64.encode(answers['password']));
 
-  console.log(`${green('The configuration has been updated successfully.')}`)
+  console.log(green('The configuration has been updated successfully.'));
 };

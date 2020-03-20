@@ -20,13 +20,14 @@
 
 Check your electronic diary in a second, by running a single command.
 
-Too lazy for typing the flags? Run the CLI in **interactive mode**! 😎
+Too lazy for typing? Run the CLI in **interactive mode**! 😎
 
 ## Features
 
 - ⚡ Interactive mode via `--interactive`
 - 💾 Saves login credentials
 - 🖥 Shows subject averages
+- 🏠 Downloads assignments
 - ✅ Tested
 - ⛏ Maintained
 
@@ -52,12 +53,13 @@ $ kreta --help
 Check your electronic diary - from right inside your terminal.
 
 Usage
-  $ kreta <options>
+   $ kreta <assignments|averages|reconfigure> [options]
+
+   Use 'kreta' for interactive mode.
 
 Options
-  -a, --averages       Show subject averages
-  -i, --interactive    Interactive mode
-  --reconfigure        Update configuration
+  assignments:
+    -o, --output       Output folder (defaults to assignments)
 
 Examples
   See: https://github.com/szekelymilan/e-kreta-cli#examples
@@ -68,13 +70,19 @@ Examples
 #### Reconfigure
 
 ```
-$ kreta --reconfigure
+$ kreta reconfigure
 ```
 
 #### Show averages
 
 ```
-$ kreta -a
+$ kreta averages
+```
+
+#### Download assignments to My Assignments folder
+
+```
+$ kreta assignments -o "My Assignments"
 ```
 
 ## Contributors
