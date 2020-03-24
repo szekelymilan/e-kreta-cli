@@ -8,18 +8,22 @@ const updateNotifier = require('update-notifier');
 const utils = require('./src/utils');
 const assignments = require('./src/assignments');
 const averages = require('./src/averages');
+const messages = require('./src/messages');
 const reconfigure = require('./src/reconfigure');
 
 const cli = meow(
   `
  ${bold('Usage')}
-   $ kreta <assignments|averages|reconfigure> [options]
+   $ kreta <assignments|averages|messages|reconfigure> [options]
 
    Use 'kreta' for interactive mode.
 
  ${bold('Options')}
    assignments:
      -o, --output       Output folder (defaults to assignments)
+
+   messages:
+     -o, --output       Output folder (defaults to messages)
 
  ${bold('Examples')}
    See: https://github.com/szekelymilan/e-kreta-cli#examples
@@ -38,25 +42,37 @@ const { output: OUTPUT } = cli.flags;
 
 async function doTask(task) {
   switch (task) {
+    case 'reconfigure':
+      await reconfigure();
+      break;
     case 'assignments':
-      let output =
+      await assignments(
         OUTPUT ||
-        (await inquirer.prompt([
-          {
-            type: 'input',
-            name: 'output',
-            message: 'Output folder:',
-            default: 'assignments',
-          },
-        ]))['output'];
-
-      await assignments(output);
+          (await inquirer.prompt([
+            {
+              type: 'input',
+              name: 'output',
+              message: 'Output folder:',
+              default: 'assignments',
+            },
+          ]))['output'],
+      );
       break;
     case 'averages':
       await averages();
       break;
-    case 'reconfigure':
-      await reconfigure();
+    case 'messages':
+      await messages(
+        OUTPUT ||
+          (await inquirer.prompt([
+            {
+              type: 'input',
+              name: 'output',
+              message: 'Output folder:',
+              default: 'messages',
+            },
+          ]))['output'],
+      );
       break;
     default:
       await interactive();
@@ -71,9 +87,10 @@ async function interactive() {
       name: 'tasks',
       message: 'Select tasks:',
       choices: [
-        { name: 'Download assignments', value: 'assignments', checked: false },
-        { name: 'Show subject averages', value: 'averages', checked: false },
         { name: 'Update configuration', value: 'reconfigure', checked: false },
+        { name: 'Show subject averages', value: 'averages', checked: false },
+        { name: 'Download assignments', value: 'assignments', checked: false },
+        { name: 'Download messages', value: 'messages', checked: false },
       ],
     },
   ]);

@@ -42,23 +42,25 @@ module.exports = async directory => {
         assignmentCounter++;
       }
 
-      mkdirp.sync(`${directory}/${utils.replaceIllegalChars(assignment['Tantargy'])}`);
-
-      spinner.text = `Downloading... (${assignmentCounter} assignments)`;
+      spinner.text = `Downloading... (${assignmentCounter} assignment${
+        assignmentCounter == 1 ? '' : 's'
+      })`;
 
       const date = new Date(assignment['FeladasDatuma']);
       const deadline = new Date(assignment['Hatarido']);
 
+      mkdirp.sync(`${directory}/${utils.replaceIllegalChars(assignment['Tantargy'].trim())}`);
+
       fs.writeFileSync(
         path.resolve(
           process.cwd(),
-          `${directory}/${utils.replaceIllegalChars(assignment['Tantargy'])}/${utils.toDateFileName(
-            date,
-          )} - ${assignment['Id']}.html`,
+          `${directory}/${utils.replaceIllegalChars(
+            assignment['Tantargy'].trim(),
+          )}/${utils.toDateFileName(date)} - ${assignment['Id']}.html`,
         ),
         `<!--
-  * Lesson: ${assignment['Tantargy']}
-  * Teacher: ${assignment['Rogzito']}
+  * Lesson: ${assignment['Tantargy'].trim()}
+  * Teacher: ${assignment['Rogzito'].trim()}
   * Date: ${utils.toDateString(date)}
   * Deadline: ${utils.toDateString(deadline)}
 -->
@@ -68,7 +70,11 @@ ${assignment['Szoveg']}
       );
     }
 
-    spinner.succeed(`Successfully downloaded ${assignmentCounter} assignments.`);
+    spinner.succeed(
+      `Successfully downloaded ${assignmentCounter} assignment${
+        assignmentCounter == 1 ? '' : 's'
+      }.`,
+    );
   } catch (e) {
     spinner.fail('An error occured while fetching data.');
     console.error(e);
