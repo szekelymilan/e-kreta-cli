@@ -28,6 +28,7 @@ Too lazy for typing? Run the CLI in **interactive mode**! 😎
 - 💾 Saves login credentials
 - 🖥 Shows subject averages
 - 🏠 Downloads assignments
+- ✉ Downloads messages
 - ✅ Tested
 - ⛏ Maintained
 
@@ -50,19 +51,22 @@ $ yarn global add e-kreta-cli
 ```
 $ kreta --help
 
-Check your electronic diary - from right inside your terminal.
+  Check your electronic diary - from right inside your terminal.
 
-Usage
-   $ kreta <assignments|averages|reconfigure> [options]
+  Usage
+    $ kreta <assignments|averages|messages|reconfigure> [options]
 
-   Use 'kreta' for interactive mode.
+    Use 'kreta' for interactive mode.
 
-Options
-  assignments:
-    -o, --output       Output folder (defaults to assignments)
+  Options
+    assignments:
+      -o, --output       Output folder (defaults to assignments)
 
-Examples
-  See: https://github.com/szekelymilan/e-kreta-cli#examples
+    messages:
+      -o, --output       Output folder (defaults to messages)
+
+  Examples
+    See: https://github.com/szekelymilan/e-kreta-cli#examples
 ```
 
 ## Examples
@@ -83,6 +87,12 @@ $ kreta averages
 
 ```
 $ kreta assignments -o "My Assignments"
+```
+
+#### Download messages to My Messages folder
+
+```
+$ kreta messages -o "My Messages"
 ```
 
 ## Contributors
