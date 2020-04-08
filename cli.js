@@ -99,11 +99,10 @@ async function interactive() {
 }
 
 (async () => {
-  let noFlag = true;
-
-  updateNotifier({ pkg: utils.pkg }).notify();
+  updateNotifier({ pkg: utils.pkg, updateCheckInterval: 1000 * 60 * 60 * 3 }).notify({
+    isGlobal: true,
+  });
 
   await doTask(cli.input[0]);
-
   process.exit();
 })();

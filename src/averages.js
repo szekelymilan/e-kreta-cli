@@ -1,8 +1,8 @@
 const { bold, red, green, white, gray } = require('chalk');
 const configstore = require('configstore');
-const request = require('request-promise-native');
 
 const utils = require('./utils');
+const request = utils.request;
 
 module.exports = async () => {
   try {

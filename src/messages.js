@@ -4,9 +4,9 @@ const fs = require('fs');
 const mkdirp = require('mkdirp');
 const path = require('path');
 const ora = require('ora');
-const request = require('request-promise-native');
 
 const utils = require('./utils');
+const request = utils.request;
 
 module.exports = async directory => {
   const spinner = ora('Downloading...').start();

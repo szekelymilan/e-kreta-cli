@@ -4,9 +4,9 @@ const fs = require('fs');
 const mkdirp = require('mkdirp');
 const path = require('path');
 const ora = require('ora');
-const request = require('request-promise-native');
 
 const utils = require('./utils');
+const request = utils.request;
 
 module.exports = async directory => {
   const spinner = ora('Downloading...').start();
@@ -17,9 +17,12 @@ module.exports = async directory => {
     mkdirp.sync(directory);
 
     const lessons = JSON.parse(
-      await request.get(`https://${utils.conf.get('institute')}.e-kreta.hu/mapi/api/v1/Lesson`, {
-        auth: { bearer: accessToken },
-      }),
+      await request.get(
+        `https://${utils.conf.get('institute')}.e-kreta.hu/mapi/api/v1/Lesson?fromDate=1970-01-01`,
+        {
+          auth: { bearer: accessToken },
+        },
+      ),
     );
 
     const wasAssignment = {};
