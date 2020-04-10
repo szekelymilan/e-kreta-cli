@@ -5,6 +5,8 @@ const inquirer = require('inquirer');
 const meow = require('meow');
 const updateNotifier = require('update-notifier');
 
+inquirer.registerPrompt('datepicker', require('inquirer-datepicker'));
+
 const utils = require('./src/utils');
 const assignments = require('./src/assignments');
 const averages = require('./src/averages');
@@ -20,10 +22,12 @@ const cli = meow(
 
  ${bold('Options')}
    assignments:
-     -o, --output       Output folder (defaults to assignments)
+     -o,   --output       Output folder
+     --sD, --startDate    Start date of interval (yyyy-mm-dd)
+     --eD, --endDate      End date of interval (yyyy-mm-dd)
 
    messages:
-     -o, --output       Output folder (defaults to messages)
+     -o,   --output       Output folder
 
  ${bold('Examples')}
    See: https://github.com/szekelymilan/e-kreta-cli#examples
@@ -34,11 +38,19 @@ const cli = meow(
         type: 'string',
         alias: 'o',
       },
+      startDate: {
+        type: 'string',
+        alias: 'sD',
+      },
+      endDate: {
+        type: 'string',
+        alias: 'eD',
+      },
     },
   },
 );
 
-const { output: OUTPUT } = cli.flags;
+const { output: OUTPUT, startDate: START_DATE, endDate: END_DATE } = cli.flags;
 
 async function doTask(task) {
   switch (task) {
@@ -46,6 +58,56 @@ async function doTask(task) {
       await reconfigure();
       break;
     case 'assignments':
+      const startDate = utils.isValidDate(START_DATE)
+        ? START_DATE
+        : utils.toDateString(
+            (await inquirer.prompt([
+              {
+                type: 'datepicker',
+                name: 'date',
+                message: 'Select start date:',
+                format: ['Y', '-', 'MM', '-', 'DD'],
+                min: {
+                  year: 1970,
+                  month: 1,
+                  day: 1,
+                },
+                max: {
+                  year: utils.isValidDate(END_DATE)
+                    ? END_DATE.split(/\D/)[0]
+                    : new Date().getFullYear(),
+                  month: utils.isValidDate(END_DATE)
+                    ? END_DATE.split(/\D/)[1]
+                    : new Date().getMonth() + 1,
+                  day: utils.isValidDate(END_DATE) ? END_DATE.split(/\D/)[2] : new Date().getDate(),
+                },
+              },
+            ]))['date'],
+          );
+
+      const endDate = utils.isValidDate(END_DATE)
+        ? END_DATE
+        : utils.toDateString(
+            (await inquirer.prompt([
+              {
+                type: 'datepicker',
+                name: 'date',
+                message: 'Select end date:',
+                format: ['Y', '-', 'MM', '-', 'DD'],
+                min: {
+                  year: startDate.split(/\D/)[0],
+                  month: startDate.split(/\D/)[1],
+                  day: startDate.split(/\D/)[2],
+                },
+                max: {
+                  year: new Date().getFullYear(),
+                  month: new Date().getMonth() + 1,
+                  day: new Date().getDate(),
+                },
+              },
+            ]))['date'],
+          );
+
       await assignments(
         OUTPUT ||
           (await inquirer.prompt([
@@ -56,6 +118,8 @@ async function doTask(task) {
               default: 'assignments',
             },
           ]))['output'],
+        startDate,
+        endDate,
       );
       break;
     case 'averages':

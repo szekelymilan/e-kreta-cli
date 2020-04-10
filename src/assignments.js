@@ -8,7 +8,10 @@ const ora = require('ora');
 const utils = require('./utils');
 const request = utils.request;
 
-module.exports = async directory => {
+module.exports = async (directory, startDate, endDate) => {
+  if (new Date(Date.parse(startDate)) > new Date(Date.parse(endDate)))
+    return console.error(red('Invalid date interval.'));
+
   const spinner = ora('Downloading...').start();
 
   try {
@@ -18,7 +21,9 @@ module.exports = async directory => {
 
     const lessons = JSON.parse(
       await request.get(
-        `https://${utils.conf.get('institute')}.e-kreta.hu/mapi/api/v1/Lesson?fromDate=1970-01-01`,
+        `https://${utils.conf.get(
+          'institute',
+        )}.e-kreta.hu/mapi/api/v1/Lesson?fromDate=${startDate}&toDate=${endDate}`,
         {
           auth: { bearer: accessToken },
         },
@@ -59,13 +64,13 @@ module.exports = async directory => {
           process.cwd(),
           `${directory}/${utils.replaceIllegalChars(
             assignment['Tantargy'].trim(),
-          )}/${utils.toDateFileName(date)} - ${assignment['Id']}.html`,
+          )}/${utils.toDateString(date)} - ${assignment['Id']}.html`,
         ),
         `<!--
   * Lesson: ${assignment['Tantargy'].trim()}
   * Teacher: ${assignment['Rogzito'].trim()}
-  * Date: ${utils.toDateString(date)}
-  * Deadline: ${utils.toDateString(deadline)}
+  * Date: ${utils.toDateTimeString(date)}
+  * Deadline: ${utils.toDateTimeString(deadline)}
 -->
 
 ${assignment['Szoveg']}

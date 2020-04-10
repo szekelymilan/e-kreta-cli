@@ -1,6 +1,6 @@
 {
   "name": "e-kreta-cli",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Check your electronic diary - from right inside your terminal.",
   "main": "cli.js",
   "scripts": {},
@@ -17,6 +17,7 @@
     "fuse.js": "^5.1.0",
     "inquirer": "^7.1.0",
     "inquirer-autocomplete-prompt": "^1.0.2",
+    "inquirer-datepicker": "^1.1.0",
     "js-base64": "^2.5.2",
     "meow": "^6.1.0",
     "mkdirp": "^1.0.4",

@@ -66,7 +66,7 @@ exports.replaceIllegalChars = path => {
   return path.replace(/[/\\?%*:|"<>]/g, '-');
 };
 
-exports.toDateString = date => {
+exports.toDateTimeString = date => {
   return (
     date.getFullYear() +
     '. ' +
@@ -82,7 +82,7 @@ exports.toDateString = date => {
   );
 };
 
-exports.toDateFileName = date => {
+exports.toDateString = date => {
   return (
     date.getFullYear() +
     '-' +
@@ -90,4 +90,10 @@ exports.toDateFileName = date => {
     '-' +
     ('0' + date.getDate()).slice(-2)
   );
+};
+
+exports.isValidDate = dateString => {
+  if (!dateString || !dateString.match(/^\d{4}-\d{2}-\d{2}$/)) return false;
+  const date = new Date(dateString);
+  return (date.getTime() || date.getTime() === 0) && date.toISOString().slice(0, 10) === dateString;
 };

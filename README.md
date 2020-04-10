@@ -60,10 +60,12 @@ $ kreta --help
 
   Options
     assignments:
-      -o, --output       Output folder (defaults to assignments)
+      -o,   --output       Output folder
+      --sD, --startDate    Start date of interval (yyyy-mm-dd)
+      --eD, --endDate      End date of interval (yyyy-mm-dd)
 
     messages:
-      -o, --output       Output folder (defaults to messages)
+      -o,   --output       Output folder
 
   Examples
     See: https://github.com/szekelymilan/e-kreta-cli#examples
@@ -83,10 +85,10 @@ $ kreta reconfigure
 $ kreta averages
 ```
 
-#### Download assignments to My Assignments folder
+#### Download assignments to My Assignments folder (from 2020-03-16 to 2020-03-20)
 
 ```
-$ kreta assignments -o "My Assignments"
+$ kreta assignments -o "My Assignments" --sD="2020-03-16" --eD="2020-03-20"
 ```
 
 #### Download messages to My Messages folder
@@ -98,6 +100,7 @@ $ kreta messages -o "My Messages"
 ## Contributors
 
 - Many thanks to [boapps](https://github.com/boapps) for making [e-kreta-api-docs](https://github.com/boapps/e-kreta-api-docs).
+- Thanks to [zoltansx](https://github.com/zoltansx) for lots of great ideas.
 
 ## License
 

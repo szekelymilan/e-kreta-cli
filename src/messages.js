@@ -50,7 +50,7 @@ module.exports = async directory => {
       mkdirp.sync(
         `${directory}/${utils.replaceIllegalChars(
           message['uzenet']['feladoNev'].trim(),
-        )}/${utils.replaceIllegalChars(utils.toDateFileName(date))} - ${message['azonosito']}`,
+        )}/${utils.replaceIllegalChars(utils.toDateString(date))} - ${message['azonosito']}`,
       );
 
       fs.writeFileSync(
@@ -58,13 +58,13 @@ module.exports = async directory => {
           process.cwd(),
           `${directory}/${utils.replaceIllegalChars(
             message['uzenet']['feladoNev'].trim(),
-          )}/${utils.replaceIllegalChars(utils.toDateFileName(date))} - ${
+          )}/${utils.replaceIllegalChars(utils.toDateString(date))} - ${
             message['azonosito']
           }/message.html`,
         ),
         `<!--
   * Teacher: ${message['uzenet']['feladoNev'].trim()}
-  * Date: ${utils.toDateString(date)}
+  * Date: ${utils.toDateTimeString(date)}
   * Subject: ${message['uzenet']['targy']}
 -->
 
@@ -86,7 +86,7 @@ ${message['uzenet']['szoveg']}
         fs.writeFileSync(
           `${directory}/${utils.replaceIllegalChars(
             message['uzenet']['feladoNev'].trim(),
-          )}/${utils.replaceIllegalChars(utils.toDateFileName(date))} - ${message['azonosito']}/${
+          )}/${utils.replaceIllegalChars(utils.toDateString(date))} - ${message['azonosito']}/${
             attachment['fajlNev']
           }`,
           data,
