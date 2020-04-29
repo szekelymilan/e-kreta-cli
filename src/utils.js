@@ -2,7 +2,7 @@ const { Base64 } = require('js-base64');
 const { bold, red } = require('chalk');
 const configstore = require('configstore');
 const request = require('request-promise-native').defaults({
-  headers: { 'User-Agent': 'Kreta.Ellenorzo/2.9.11.2020033003 (Android; 0.0)' },
+  headers: {"User-Agent": "Kreta.Ellenorzo/2.9.11.2020033003 (Android; SM-G950F 0.0)"},
 });
 
 exports.pkg = require('../package.json');
